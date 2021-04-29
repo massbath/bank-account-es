@@ -12,7 +12,7 @@ class BankAccountAggregate {
     var state =  BankAccountState()
 
     constructor(events: List<DomainEvent>) {
-        events.forEach { state.apply(it) }
+        events.forEach { state = state.apply(it) }
     }
 
     constructor(accountNumber: AccountNumber, date: LocalDateTime) : this(emptyList()) {
@@ -39,7 +39,7 @@ class BankAccountAggregate {
 
 data class BankAccountState(
     var balance: Amount = Amount(0.0),
-    var accountNumber: AccountNumber=AccountNumber("UNKNOWN"),
+    var accountNumber: AccountNumber = AccountNumber("UNKNOWN"),
     var dateCreation: LocalDateTime? = LocalDateTime.MIN,
 ) {
 

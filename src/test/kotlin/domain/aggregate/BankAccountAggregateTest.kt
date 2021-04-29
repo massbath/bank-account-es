@@ -22,6 +22,26 @@ class BankAccountAggregateTest {
     }
 
     @Test
+    fun `should rebuild account from its events`() {
+        //Given
+        val today = LocalDateTime.now()
+        val yesterday = today.minusDays(1)
+        val accountNumber = AccountNumber("12345678")
+
+        //When
+        val bankAccount = BankAccountAggregate(listOf(
+            AccountCreated(accountNumber, yesterday),
+            MoneyDeposed(accountNumber, Amount(5.0), today)))
+
+        //Then
+        assertThat(bankAccount.state).isEqualTo(
+            BankAccountState(
+                accountNumber = accountNumber,
+                balance = Amount(5.0),
+                dateCreation = yesterday))
+    }
+
+    @Test
     fun `should make a deposit`() {
         val today = LocalDateTime.now()
         val bankAccount = BankAccountAggregate(AccountNumber("12345678"), today)
