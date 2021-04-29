@@ -17,6 +17,7 @@ class BankAccountAggregateTest {
         assertThat(bankAccount.uncommittedChanges).contains(AccountCreated(AccountNumber("12345678"), today))
         assertThat(bankAccount.state).isEqualTo(
             BankAccountState(
+                balance = Balance(0.0),
                 accountNumber = AccountNumber("12345678"),
                 dateCreation = today))
     }
@@ -36,8 +37,8 @@ class BankAccountAggregateTest {
         //Then
         assertThat(bankAccount.state).isEqualTo(
             BankAccountState(
+                balance = Balance(5.0),
                 accountNumber = accountNumber,
-                balance = Amount(5.0),
                 dateCreation = yesterday))
     }
 
@@ -53,9 +54,9 @@ class BankAccountAggregateTest {
             today))
         assertThat(bankAccount.state).isEqualTo(
             BankAccountState(
+                balance = Balance(10.0),
                 accountNumber = AccountNumber("12345678"),
-                dateCreation = today,
-                balance = Amount(10.0)))
+                dateCreation = today))
     }
 
 
@@ -71,9 +72,9 @@ class BankAccountAggregateTest {
             today))
         assertThat(bankAccount.state).isEqualTo(
             BankAccountState(
+                balance = Balance(-10.0),
                 accountNumber = AccountNumber("12345678"),
-                dateCreation = today,
-                balance = Amount(-10.0)))
+                dateCreation = today))
     }
 }
 

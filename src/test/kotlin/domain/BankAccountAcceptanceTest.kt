@@ -3,12 +3,12 @@ package domain
 import domain.adapter.EventStoreInMemory
 import domain.aggregate.AccountNumber
 import domain.aggregate.Amount
+import domain.aggregate.Balance
 import domain.command.CommandHandler
 import domain.command.DepositCommand
 import domain.command.WithdrawCommand
 import domain.query.HistoryQuery
 import domain.query.QueryHandlers
-import domain.query.history.Balance
 import domain.query.history.History
 import domain.query.history.HistoryQueryHandler
 import domain.query.history.Operation

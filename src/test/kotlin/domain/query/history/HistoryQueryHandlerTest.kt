@@ -4,6 +4,7 @@ import domain.MoneyDeposed
 import domain.MoneyWithdrawn
 import domain.aggregate.AccountNumber
 import domain.aggregate.Amount
+import domain.aggregate.Balance
 import domain.query.HistoryQuery
 import domain.query.history.OperationType.DEPOSIT
 import domain.query.history.OperationType.WITHDRAW

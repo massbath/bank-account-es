@@ -1,6 +1,7 @@
 package domain.query.history
 
 import domain.aggregate.Amount
+import domain.aggregate.Balance
 import java.time.LocalDateTime
 
 data class History(val operations: List<Operation>)
@@ -12,7 +13,3 @@ enum class OperationType {
     WITHDRAW
 }
 
-data class Balance(val value: Double) {
-    operator fun plus(amount: Amount) = Balance(value + amount.value)
-    operator fun minus(amount: Amount) = Balance(value - amount.value)
-}

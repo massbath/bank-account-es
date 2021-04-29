@@ -5,7 +5,11 @@ import domain.MoneyWithdrawn
 import domain.adapter.EventStoreInMemory
 import domain.aggregate.AccountNumber
 import domain.aggregate.Amount
-import domain.query.history.*
+import domain.aggregate.Balance
+import domain.query.history.History
+import domain.query.history.HistoryQueryHandler
+import domain.query.history.Operation
+import domain.query.history.OperationType
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import java.time.LocalDateTime

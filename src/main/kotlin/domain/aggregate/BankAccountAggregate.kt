@@ -9,7 +9,7 @@ import java.time.LocalDateTime
 class BankAccountAggregate {
 
     val uncommittedChanges = mutableListOf<DomainEvent>()
-    var state =  BankAccountState()
+    var state = BankAccountState()
 
     constructor(events: List<DomainEvent>) {
         events.forEach { state = state.apply(it) }
@@ -38,7 +38,7 @@ class BankAccountAggregate {
 }
 
 data class BankAccountState(
-    var balance: Amount = Amount(0.0),
+    val balance: Balance = Balance(0.0),
     var accountNumber: AccountNumber = AccountNumber("UNKNOWN"),
     var dateCreation: LocalDateTime? = LocalDateTime.MIN,
 ) {

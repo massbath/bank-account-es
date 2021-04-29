@@ -3,6 +3,7 @@ package domain.query.history
 import domain.DomainEvent
 import domain.MoneyDeposed
 import domain.MoneyWithdrawn
+import domain.aggregate.Balance
 import domain.query.HistoryQuery
 import domain.query.Query
 import domain.query.QueryHandler
