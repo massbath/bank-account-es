@@ -1,9 +1,8 @@
-package domain
+package domain.aggregate
 
-import domain.aggregate.AccountNumber
-import domain.aggregate.Amount
-import domain.aggregate.BankAccountAggregate
-import domain.aggregate.BankAccountState
+import domain.AccountCreated
+import domain.MoneyDeposed
+import domain.MoneyWithdrawn
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import java.time.LocalDateTime

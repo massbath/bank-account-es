@@ -6,9 +6,6 @@ import domain.MoneyWithdrawn
 import domain.adapter.EventStoreInMemory
 import domain.aggregate.AccountNumber
 import domain.aggregate.Amount
-import domain.command.command.CommandHandler
-import domain.command.command.DepositCommand
-import domain.command.command.WithdrawCommand
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test

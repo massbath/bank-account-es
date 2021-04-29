@@ -1,4 +1,4 @@
-package domain.command.command
+package domain.command
 
 import domain.aggregate.BankAccountAggregate
 import spi.EventStore

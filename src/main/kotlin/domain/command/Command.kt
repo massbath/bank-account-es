@@ -1,4 +1,4 @@
-package domain.command.command
+package domain.command
 
 import domain.aggregate.AccountNumber
 import domain.aggregate.Amount

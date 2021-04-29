@@ -5,6 +5,7 @@ import domain.MoneyWithdrawn
 import domain.adapter.EventStoreInMemory
 import domain.aggregate.AccountNumber
 import domain.aggregate.Amount
+import domain.query.history.*
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import java.time.LocalDateTime
@@ -38,32 +39,3 @@ class QueryHandlersAcceptanceTest {
                 )))
     }
 }
-
-data class History(val operations: List<Operation>)
-
-data class Operation(val type: OperationType, val balance: Balance, val date: LocalDateTime)
-
-enum class OperationType {
-    DEPOSIT,
-    WITHDRAW
-}
-
-data class Balance(val value: Double) {
-    operator fun plus(amount: Amount) = Balance(value + amount.value)
-    operator fun minus(amount: Amount) = Balance(value - amount.value)
-}
-
-class QueryHandlers(private val handlers: List<QueryHandler>) {
-    fun handle(query: Query) = handlers.first { it.accept(query) }.handle(query)
-}
-
-
-interface QueryHandler {
-    fun accept(query: Query): Boolean
-    fun handle(query: Query): Any?
-}
-
-
-sealed class Query(open var accountNumber: AccountNumber)
-
-data class HistoryQuery(override var accountNumber: AccountNumber) : Query(accountNumber)
