@@ -1,6 +1,7 @@
 package domain.query.history
 
 import domain.AccountCreated
+import domain.DomainEvent
 import domain.MoneyDeposed
 import domain.MoneyWithdrawn
 import domain.query.HistoryQuery
@@ -20,17 +21,23 @@ class HistoryQueryHandler(private val eventStore: EventStore) : QueryHandler {
                 ?.sortedBy { it.date }
                 ?.fold(mutableListOf<Operation>()) { operations, event ->
                     val currentBalance = if (operations.isNotEmpty()) operations.last().balance else Balance(0.0)
-                    operations += when (event) {
-                        is MoneyDeposed -> Operation(OperationType.DEPOSIT, currentBalance + event.amount, event.date)
-                        is MoneyWithdrawn -> Operation(OperationType.WITHDRAW,
-                            currentBalance - event.amount,
-                            event.date)
-                        is AccountCreated -> TODO("Nothing to do for other events")
-                    }
+                    operations += mapToOperation(event, currentBalance)
                     operations
                 }
 
         return operations?.let { History(operations) }
+    }
+
+    private fun mapToOperation(event: DomainEvent, currentBalance: Balance) = when (event) {
+        is MoneyDeposed -> Operation(OperationType.DEPOSIT,
+            currentBalance + event.amount,
+            event.date,
+            event.amount)
+        is MoneyWithdrawn -> Operation(OperationType.WITHDRAW,
+            currentBalance - event.amount,
+            event.date,
+            event.amount)
+        is AccountCreated -> TODO("Nothing to do for other events")
     }
 
 }

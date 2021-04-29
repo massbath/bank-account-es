@@ -33,9 +33,18 @@ class QueryHandlersAcceptanceTest {
         //Then
         assertThat(history).isEqualTo(
             History(
-                listOf(Operation(type = OperationType.DEPOSIT, balance = Balance(5.0), date = aWeekAgo),
-                    Operation(type = OperationType.DEPOSIT, balance = Balance(10.0), date = yesterday),
-                    Operation(type = OperationType.WITHDRAW, balance = Balance(2.0), date = today)
+                listOf(Operation(type = OperationType.DEPOSIT,
+                    amount = Amount(5.0),
+                    balance = Balance(5.0),
+                    date = aWeekAgo),
+                    Operation(type = OperationType.DEPOSIT,
+                        amount = Amount(5.0),
+                        balance = Balance(10.0),
+                        date = yesterday),
+                    Operation(type = OperationType.WITHDRAW,
+                        amount = Amount(8.00),
+                        balance = Balance(2.0),
+                        date = today)
                 )))
     }
 }

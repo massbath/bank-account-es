@@ -60,7 +60,7 @@ class HistoryQueryHandlerTest {
         val history = handler.handle(HistoryQuery(anAccountNumber))
 
         //Then
-        assertThat(history).isEqualTo(History(listOf(Operation(DEPOSIT, Balance(10.0), today))))
+        assertThat(history).isEqualTo(History(listOf(Operation(DEPOSIT, Balance(10.0), today, Amount(10.0)))))
     }
 
     @Test
@@ -81,8 +81,8 @@ class HistoryQueryHandlerTest {
 
         //Then
         assertThat(history).isEqualTo(History(listOf(
-            Operation(DEPOSIT, Balance(10.0), yesterday),
-            Operation(DEPOSIT, Balance(20.0), today)
+            Operation(DEPOSIT, Balance(10.0), yesterday, Amount(10.0)),
+            Operation(DEPOSIT, Balance(20.0), today, Amount(10.0))
         )))
     }
 
@@ -101,7 +101,7 @@ class HistoryQueryHandlerTest {
         val history = handler.handle(HistoryQuery(anAccountNumber))
 
         //Then
-        assertThat(history).isEqualTo(History(listOf(Operation(WITHDRAW, Balance(-10.0), today))))
+        assertThat(history).isEqualTo(History(listOf(Operation(WITHDRAW, Balance(-10.0), today, Amount(10.0)))))
     }
 
     @Test
@@ -123,8 +123,8 @@ class HistoryQueryHandlerTest {
 
         //Then
         assertThat(history).isEqualTo(History(listOf(
-            Operation(WITHDRAW, Balance(-10.0), yesterday),
-            Operation(WITHDRAW, Balance(-20.0), today))))
+            Operation(WITHDRAW, Balance(-10.0), yesterday, Amount(10.0)),
+            Operation(WITHDRAW, Balance(-20.0), today, Amount(10.0)))))
     }
 
     @Test
@@ -146,8 +146,8 @@ class HistoryQueryHandlerTest {
 
         //Then
         assertThat(history).isEqualTo(History(listOf(
-            Operation(DEPOSIT, Balance(10.0), yesterday),
-            Operation(WITHDRAW, Balance(0.0), today))))
+            Operation(DEPOSIT, Balance(10.0), yesterday, Amount(10.0)),
+            Operation(WITHDRAW, Balance(0.0), today, Amount(10.0)))))
     }
 }
 
