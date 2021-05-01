@@ -29,9 +29,10 @@ class QueryHandlersAcceptanceTest {
             MoneyDeposed(anAccount, Amount(5.0), yesterday),
             MoneyWithdrawn(anAccount, Amount(8.0), today))
         )
-        //When
         val historyQueryHandler = HistoryQueryHandler(eventStore)
         val queryHandlers = QueryHandlers(listOf(historyQueryHandler))
+
+        //When
         val history = queryHandlers.handle(HistoryQuery(anAccount))
 
         //Then

@@ -12,9 +12,7 @@ class QueryHandlersTest {
         //Given
         val aQuery = mockk<Query>()
         val aQueryHandler = mockk<QueryHandler>(relaxed = true) {
-            every {
-                accept(aQuery)
-            } returns (true)
+            every { accept(aQuery) } returns (true)
         }
         val handlers = QueryHandlers(listOf(aQueryHandler))
 

@@ -9,71 +9,78 @@ import java.time.LocalDateTime
 
 class BankAccountAggregateTest {
 
+    private val anAccountNumber = AccountNumber("12345678")
+    private val today = LocalDateTime.now()
+
     @Test
     fun `should create account`() {
-        val today = LocalDateTime.now()
-        val bankAccount = BankAccountAggregate(AccountNumber("12345678"), today)
+        //Given
+        //When
+        val bankAccount = BankAccountAggregate(anAccountNumber, today)
 
-        assertThat(bankAccount.uncommittedChanges).contains(AccountCreated(AccountNumber("12345678"), today))
+        //Then
+        assertThat(bankAccount.uncommittedChanges).contains(AccountCreated(anAccountNumber, today))
         assertThat(bankAccount.state).isEqualTo(
             BankAccountState(
                 balance = Balance(0.0),
-                accountNumber = AccountNumber("12345678"),
+                accountNumber = anAccountNumber,
                 dateCreation = today))
     }
 
     @Test
     fun `should rebuild account from its events`() {
         //Given
-        val today = LocalDateTime.now()
         val yesterday = today.minusDays(1)
-        val accountNumber = AccountNumber("12345678")
 
         //When
         val bankAccount = BankAccountAggregate(listOf(
-            AccountCreated(accountNumber, yesterday),
-            MoneyDeposed(accountNumber, Amount(5.0), today)))
+            AccountCreated(anAccountNumber, yesterday),
+            MoneyDeposed(anAccountNumber, Amount(5.0), today)))
 
         //Then
         assertThat(bankAccount.state).isEqualTo(
             BankAccountState(
                 balance = Balance(5.0),
-                accountNumber = accountNumber,
+                accountNumber = anAccountNumber,
                 dateCreation = yesterday))
     }
 
     @Test
     fun `should make a deposit`() {
-        val today = LocalDateTime.now()
-        val bankAccount = BankAccountAggregate(AccountNumber("12345678"), today)
+        //Given
+        val bankAccount = BankAccountAggregate(anAccountNumber, today)
 
+        //When
         bankAccount.deposit(Amount(10.0), today)
 
-        assertThat(bankAccount.uncommittedChanges).contains(MoneyDeposed(AccountNumber("12345678"),
+        //Then
+        assertThat(bankAccount.uncommittedChanges).contains(MoneyDeposed(anAccountNumber,
             Amount(10.0),
             today))
         assertThat(bankAccount.state).isEqualTo(
             BankAccountState(
                 balance = Balance(10.0),
-                accountNumber = AccountNumber("12345678"),
+                accountNumber = anAccountNumber,
                 dateCreation = today))
     }
 
 
     @Test
     fun `should make a withdraw`() {
-        val today = LocalDateTime.now()
-        val bankAccount = BankAccountAggregate(AccountNumber("12345678"), today)
+        //Given
+        val bankAccount = BankAccountAggregate(anAccountNumber, today)
 
+        //When
         bankAccount.withdraw(Amount(10.0), today)
 
-        assertThat(bankAccount.uncommittedChanges).contains(MoneyWithdrawn(AccountNumber("12345678"),
+        //Then
+        assertThat(bankAccount.uncommittedChanges).contains(MoneyWithdrawn(anAccountNumber,
             Amount(10.0),
             today))
         assertThat(bankAccount.state).isEqualTo(
             BankAccountState(
                 balance = Balance(-10.0),
-                accountNumber = AccountNumber("12345678"),
+                accountNumber = anAccountNumber,
                 dateCreation = today))
     }
 }

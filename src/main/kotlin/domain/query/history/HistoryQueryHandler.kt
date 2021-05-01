@@ -31,13 +31,13 @@ class HistoryQueryHandler(private val eventStore: EventStore) : QueryHandler {
 
     private fun mapToOperation(event: DomainEvent, currentBalance: Balance) = when (event) {
         is MoneyDeposed -> Operation(OperationType.DEPOSIT,
+            event.amount,
             currentBalance + event.amount,
-            event.date,
-            event.amount)
+            event.date)
         is MoneyWithdrawn -> Operation(OperationType.WITHDRAW,
+            event.amount,
             currentBalance - event.amount,
-            event.date,
-            event.amount)
+            event.date)
         else -> null
     }
 
