@@ -13,6 +13,7 @@ class HistoryQueryHandler(private val eventStore: EventStore) : QueryHandler {
     override fun accept(query: Query): Boolean =
         when (query) {
             is HistoryQuery -> true
+            else -> false
         }
 
     override fun handle(query: Query): History? {
