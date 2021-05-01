@@ -20,3 +20,7 @@ In order to retrieve some or all my savings As a bank client I want to make a wi
 
 In order to check my operations As a bank client I want to see the history (operation,date,amount,balance) of my
 operation
+
+### US 4
+
+In order to check my actual balance As a bank client I want to see a detailed balance (total, total credit, total debit)
